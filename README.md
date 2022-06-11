@@ -29,7 +29,8 @@ In my opinion longer passwords are ways better then shorter and complexer ones.
 
 # virtual environment
 you might want to create a virtual environment with:
-python.exe -m venv 'drive:\path\to\kee-password' --copies --upgrade-deps
+`python.exe -m venv 'drive:\path\to\kee-password' --copies --upgrade-deps`
+
 Remember to activate this everytime you use it from the scripts folder!
 
 # modules
