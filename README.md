@@ -42,3 +42,10 @@ Now you can install the needed modules with:
 
 and check the successfull installation with:  
 ```pip list```
+
+# build the Windows app
+With the `compile.cmd` you can create the EXE file to run this app with a python developing environment.
+
+
+contact me for any suggestions or questions,
+Teo
