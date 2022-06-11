@@ -4,3 +4,5 @@ build/
 dist/
 pyvenv.cfg
 README.md.backup
+ke-password.spec
+venv_shell.cmd
