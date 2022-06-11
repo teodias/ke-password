@@ -1,3 +1,5 @@
+[TOC]
+
 # ke-password
 password generator
 
@@ -22,19 +24,21 @@ In my opinion longer passwords are ways better then shorter and complexer ones.
 - You need git installed: I prefer the portable package, but you choose what's the best for you.
 
 # download
+
 1. Open a terminal in your projects folder
 2. The next step will create the subfolder 'ke-password' in this folder
-3. Clone the repository with:
-   `git clone https://github.com/teodias/ke-password.git`
+3. Clone the repository with:  
+```git clone https://github.com/teodias/ke-password.git```
 
 # virtual environment
-you might want to create a virtual environment with:
-`python.exe -m venv 'drive:\path\to\kee-password' --copies --upgrade-deps`
+you might want to create a virtual environment with:  
+```python.exe -m venv 'drive:\path\to\kee-password' --copies --upgrade-deps```
 
 Remember to activate this everytime you use it from the scripts folder!
 
 # modules
-Now you can install the needed modules with:
-`pip install pysimplegui pyinstaller`
-and check the successfull installation with:
-`pip list`
+Now you can install the needed modules with:  
+```pip install pysimplegui pyinstaller```
+
+and check the successfull installation with:  
+```pip list```
