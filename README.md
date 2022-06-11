@@ -2,6 +2,7 @@
 password generator
 
 I developed this app to help my users for finding easy memorable and secure passwords.
+
 In the past my users tend to put personal information in their passwords like husband name, childrens date of birth or pet name.
 This type of information can be guessed by social engineering and in my opinion it's not a good base for using in passwords.
 Also after beeing forced by a company polica to change this after some weeks, they get confused about the similiarity of ther own chossen passwords.
@@ -10,7 +11,6 @@ Moreover, after implementing a policy with password history (the servers remeber
 And guess what happened next day? They were so confused about trying 5-6 password they do not remember which one was accepted by the system...
 
 So here comes my attempt to help them.
-
 This app creates a password from a wordlist with symbols, numbers and an optional lowercase char.
 There are no personal information in this password and it's not to hard to remember it.
 The safety aspect is not the complexity of the password (brute force algorithms are not getting confused by complexity ;) only humans do :D) it's the lentgh.
