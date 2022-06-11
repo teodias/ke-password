@@ -1,5 +1,3 @@
-[TOC]
-
 # ke-password
 password generator
 
