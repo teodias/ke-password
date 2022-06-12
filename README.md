@@ -42,7 +42,7 @@ and check the successfull installation with:
 ```pip list```
 
 # build the Windows app
-With the `compile.cmd` you can create the EXE file to run this app with a python developing environment.
+With the `compile.cmd` you can create an EXE file to run this app without a separately installed python compiler.
 
 
 contact me for any suggestions or questions,
