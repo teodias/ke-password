@@ -15,7 +15,21 @@ import pathlib as pl
 from pathlib import Path
 import sys
 
-APP_NAME = "Password Generator"
+
+'''
+Change log
+
+            
+    0.1.0   2022-06-08
+        intitial release
+
+'''
+
+VERSION = '0.1.0'
+__version__ = VERSION.split()[0]
+
+
+APP_NAME = "Password Generator" + " " + VERSION
 APP_THEME = 'Default1'
 
 WORD_LIST_FILE = r'wordlist.txt'
