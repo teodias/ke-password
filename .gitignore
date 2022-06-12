@@ -2,6 +2,7 @@ lib/
 scripts/
 build/
 dist/
+releases/
 pyvenv.cfg
 README.md.backup
 ke-password.spec
