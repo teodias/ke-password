@@ -45,5 +45,5 @@ and check the successfull installation with:
 With the `compile.cmd` you can create an EXE file to run this app without a separately installed python compiler.
 
 
-contact me for any suggestions or questions,
+contact me for any suggestions or questions,  
 Teo
