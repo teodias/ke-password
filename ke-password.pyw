@@ -11,7 +11,6 @@
 import PySimpleGUI as sg
 import random
 import re
-import pathlib as pl
 from pathlib import Path
 import sys
 
@@ -213,7 +212,7 @@ def gui(theme):
             sg.popup(f"The listed password(s)\nhas been copied\nto the clipboard.\n")
 
         if event == 'Save':
-            initial_folder = pl.Path.home().joinpath('Documents')
+            initial_folder = Path.home().joinpath('Documents')
             selected_file_and_path = sg.popup_get_file(
                 'Save Passwords',
                 save_as=True,
@@ -226,7 +225,7 @@ def gui(theme):
                 )
             )
             if selected_file_and_path:
-                file = pl.Path(selected_file_and_path)
+                file = Path(selected_file_and_path)
                 with open(file, mode='w') as writeable_file:
                     writeable_file.write(values['-PASSWORDS-'])
 
@@ -235,7 +234,7 @@ def gui(theme):
 
 if __name__ == "__main__":
     script_file_path = Path(__file__).resolve().parent
-    if not pl.Path(script_file_path).joinpath(WORD_LIST_FILE).exists():
+    if not Path(script_file_path).joinpath(WORD_LIST_FILE).exists():
         sg.Window('File not Found!',
                   [[sg.Text(f"No word list file '{WORD_LIST_FILE}' found!\n\nCannot continue without!")],
                    [sg.VPush()],
