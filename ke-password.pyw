@@ -3,36 +3,36 @@
 
 """
     TODO:
+    install pysimplegui 4.60.20+
     add window.bind for ESCAPE to clear all input fields
-    
+
+    Change log
+
+    0.1.1   2022-06-22
+    - fixed file access to word list
+
+    0.1.0   2022-06-08
+    - intitial release
+
 """
 
 # modules
-import PySimpleGUI as sg
-import random
 import re
-from pathlib import Path
 import sys
+import random
+from pathlib import Path
+import PySimpleGUI as sg
 
-
-'''
-Change log
-
-            
-    0.1.0   2022-06-08
-        intitial release
-
-'''
-
-VERSION = '0.1.0'
+# constants
+VERSION = "0.1.1"
 __version__ = VERSION.split()[0]
 
 
 APP_NAME = "Password Generator" + " " + VERSION
-APP_THEME = 'Default1'
+APP_THEME = "Default1"
 
-WORD_LIST_FILE = r'wordlist.txt'
-PASSWORD_FILE = r'passwords.txt'
+WORD_LIST_FILE = r"wordlist.txt"
+PASSWORD_FILE = r"passwords.txt"
 
 SG_TIMEOUT = 50   # timeout in millisecond
 
@@ -51,14 +51,31 @@ LOWERCASE_CHARS = [
     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
     'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
+def check_word_list():
+    """ check for word list file """
+    word_list_file = Path(__file__).resolve().parent.joinpath(WORD_LIST_FILE)
+    if not word_list_file.exists():
+        sg.Window('File not Found!',
+                  [[sg.Text(f"No word list file '{word_list_file}' found!\n\n" \
+                      "Cannot continue without!")],
+                   [sg.VPush()],
+                   [sg.Push(), sg.Button("Cancel", size=10, bind_return_key=True)]],
+                  size=(350, 170),
+                  font="Any 16",
+                  grab_anywhere=True,
+                  modal=True,
+                  keep_on_top=True
+                  ).read(close=True)
+        sys.exit(1)
 
 def generate_passwords(
         password_length,
         use_lowercase_char,
         number_of_passwords):
+    """ generates passwords in the form WORD-nn[s]-WORD with an optional lower case char """
 
     def read_word_list():
-        with open(WORD_LIST_FILE) as file:
+        with open(Path(__file__).resolve().parent.joinpath(WORD_LIST_FILE),encoding="utf8") as file:
             words = file.read().split("\n")
 
         # some trivia
@@ -96,6 +113,7 @@ def generate_passwords(
 
 
 def gui(theme):
+    """ main gui layout """
 
     sg.theme(theme)
     menu_right_click = ['', ['Copy selected password']]
@@ -112,7 +130,9 @@ def gui(theme):
             sg.Checkbox('', key='-USE_LOWERCASE_CHARS-', size=(2, 1), default=False),
         ],
         [
-            sg.Text(f'Amount of passwords to generate ({PASSWORD_AMOUNT_MIN}-{PASSWORD_AMOUNT_MAX})'),
+            sg.Text('Amount of passwords to generate '
+                f'({PASSWORD_AMOUNT_MIN}-{PASSWORD_AMOUNT_MAX})'
+            ),
             sg.Push(),
             sg.Input(key='-PASSWORD_AMOUNT-', enable_events=True, size=(5, 1)),
         ]
@@ -142,74 +162,89 @@ def gui(theme):
         ]
     ]
 
-    window = sg.Window(
+    return sg.Window(
         APP_NAME,
         layout,
         size=(400, 600),
-        grab_anywhere=True
+        grab_anywhere=True,
+        finalize=True
     )
+
+def main():
+    """ main routine """
+
+    window = gui(APP_THEME)
 
     while True:
 
         event, values = window.read(timeout_key="-TIMEOUT-", timeout=SG_TIMEOUT)
-        print("\n", event, values)
+        print(event, values)
 
         # app closed
         if event in (sg.WIN_CLOSED, None, 'Exit'):
             break
 
-        # input validation: allow users only to enter data suiting to the DATATYPE_INTEGER regex pattern
-        if event == '-PASSWORD_LENGTH-' and values['-PASSWORD_LENGTH-'] and not re.fullmatch(DATATYPE_INTEGER, values['-PASSWORD_LENGTH-']):
+        # input validation: allow users only to enter data suiting
+        # to the DATATYPE_INTEGER regex pattern
+        if event == '-PASSWORD_LENGTH-' \
+            and values['-PASSWORD_LENGTH-'] \
+            and not re.fullmatch(DATATYPE_INTEGER, values['-PASSWORD_LENGTH-']):
             window['-PASSWORD_LENGTH-'].update('')
-        if event == '-PASSWORD_AMOUNT-' and values['-PASSWORD_AMOUNT-'] and not re.fullmatch(DATATYPE_INTEGER, values['-PASSWORD_AMOUNT-']):
+
+        if event == '-PASSWORD_AMOUNT-' \
+            and values['-PASSWORD_AMOUNT-'] \
+            and not re.fullmatch(DATATYPE_INTEGER, values['-PASSWORD_AMOUNT-']):
             window['-PASSWORD_AMOUNT-'].update('')
 
         # if user has entered allowed settings, enable Start buttom
-        if re.fullmatch(PASSWORD_LENGTH, values['-PASSWORD_LENGTH-']) and re.fullmatch(PASSWORD_AMOUNT, values['-PASSWORD_AMOUNT-']):
+        if re.fullmatch(PASSWORD_LENGTH, values['-PASSWORD_LENGTH-']) \
+            and re.fullmatch(PASSWORD_AMOUNT, values['-PASSWORD_AMOUNT-']):
             window['Start'].update(disabled=False)
 
-        # if user has entered unallowed settings, disnable Start buttom
-        if not re.fullmatch(PASSWORD_LENGTH, values['-PASSWORD_LENGTH-']) or not re.fullmatch(PASSWORD_AMOUNT, values['-PASSWORD_AMOUNT-']):
+        # if user has entered unallowed settings, disable Start buttom
+        if not re.fullmatch(PASSWORD_LENGTH, values['-PASSWORD_LENGTH-']) \
+            or not re.fullmatch(PASSWORD_AMOUNT, values['-PASSWORD_AMOUNT-']):
             window['Start'].update(disabled=True)
 
         if values['-PASSWORDS-']:
-            """ enable the buttons clear/copy/save only if output area has data"""
+            # enable the buttons clear/copy/save only if output area has data
             window['Clear'].update(disabled=False)
             window['Copy'].update(disabled=False)
             window['Save'].update(disabled=False)
 
         if not values['-PASSWORDS-']:
-            """disable the buttons clear/copy/save is there is no data in output area"""
+            # disable the buttons clear/copy/save is there is no data in output area
             window['Clear'].update(disabled=True)
             window['Copy'].update(disabled=True)
             window['Save'].update(disabled=True)
 
         if event == 'Copy selected password':
-            """ on right click upon a selection of passwords copy them to the clipboard """
+            # on right click upon a selection of passwords copy them to the clipboard
             try:
                 password = window['-PASSWORDS-'].Widget.selection_get()
             except sg.tk.TclError:
                 password = None
             if password:
                 sg.clipboard_set(password)
-                sg.popup(f"The selected password(s)\n\n{password}\n\nhas been copied\nto the clipboard.\n")
+                sg.popup("The selected password(s)\n\n" \
+                    f"{password}\n\n" \
+                    "has been copied\nto the clipboard.\n")
 
         if event == 'Start':
-            """ on click on start button, generate passwords and print them to the output area"""
+            # on click on start button, generate passwords and print them to the output area
             passwords = generate_passwords(
                 values['-PASSWORD_LENGTH-'],
                 values['-USE_LOWERCASE_CHARS-'],
                 values['-PASSWORD_AMOUNT-'])
-            for password in passwords:
-                window['-PASSWORDS-'].print(password)
+            window['-PASSWORDS-'].update(passwords)
 
         if event == 'Clear':
-            """ clear the password list """
+            # clear the password list
             window['-PASSWORDS-'].Update('')
 
         if event == 'Copy' and values['-PASSWORDS-']:
             sg.clipboard_set(values['-PASSWORDS-'])
-            sg.popup(f"The listed password(s)\nhas been copied\nto the clipboard.\n")
+            sg.popup("The listed password(s)\nhas been copied\nto the clipboard.\n")
 
         if event == 'Save':
             initial_folder = Path.home().joinpath('Documents')
@@ -226,25 +261,12 @@ def gui(theme):
             )
             if selected_file_and_path:
                 file = Path(selected_file_and_path)
-                with open(file, mode='w') as writeable_file:
+                with open(file, mode='w',encoding="utf8") as writeable_file:
                     writeable_file.write(values['-PASSWORDS-'])
 
     window.close()
 
 
 if __name__ == "__main__":
-    script_file_path = Path(__file__).resolve().parent
-    if not Path(script_file_path).joinpath(WORD_LIST_FILE).exists():
-        sg.Window('File not Found!',
-                  [[sg.Text(f"No word list file '{WORD_LIST_FILE}' found!\n\nCannot continue without!")],
-                   [sg.VPush()],
-                   [sg.Push(), sg.Button("Cancel", size=10, bind_return_key=True)]],
-                  size=(350, 170),
-                  font="Any 16",
-                  grab_anywhere=True,
-                  modal=True,
-                  keep_on_top=True
-                  ).read(close=True)
-        sys.exit(1)
-    else:
-        gui(APP_THEME)
+    check_word_list()
+    main()
