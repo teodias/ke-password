@@ -3,6 +3,7 @@ build/
 dist/
 lib/
 scripts/
-pyvenv.cfg
 ke-password.spec
+PySimpleGUI.py
+pyvenv.cfg
 venv_shell.cmd
