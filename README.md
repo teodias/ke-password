@@ -5,24 +5,23 @@ I developed this app to help my users for finding easy memorable and secure pass
 
 In the past my users tend to put personal information in their passwords like husband name, childrens date of birth or pet name.
 This type of information can be guessed by social engineering and in my opinion it's not a good base for using in passwords.
-Also after beeing forced by a company polica to change this after some weeks, they get confused about the similiarity of ther own chossen passwords.
+Also after beeing forced by a domain policy to change this after a quite short time, they get confused about the similiarity of their own choosen passwords.
 Was it pet's name and then child's DOB ? Or vice versa?
-Moreover, after implementing a policy with password history (the servers remeber the last used 5 or 10 passwords) the user's had to try many passwords before the server accepted it.
-And guess what happened next day? They were so confused about trying 5-6 password they do not remember which one was accepted by the system...
+Moreover, after implementing a policy with password history (the servers remember the last used 5 or 10 passwords) the users had to try many passwords before the server accepted it.
+And guess what happened next day? They were so confused about trying 5-6 passwords they do not remember which one was accepted by the system...
 
-So here comes my attempt to help them.
+So here comes my attempt to help:
 This app creates a password from a wordlist with symbols, numbers and an optional lowercase char.
 There are no personal information in this password and it's not to hard to remember it.
-The safety aspect is not the complexity of the password (brute force algorithms are not getting confused by complexity ;) only humans do :D) it's the lentgh.
+The safety aspect is not the complexity of the password (brute force algorithms are not getting confused by short but very complex passwords ;) only humans do :D) it's the lentgh of the password.
 This passwords can get quite long but are still easy to remember.
 In my opinion longer passwords are ways better then shorter and complexer ones.
 
 # requirements
-- You need python installed: Find any distri suiting your needs. I personally like PySchool-slim from SourceForge.
-- You need git installed: I prefer the portable package, but you choose what's the best for you.
+- You need python installed
+- You need git installed
 
 # download
-
 1. Open a terminal in your projects folder
 2. The next step will create the subfolder 'ke-password' in this folder
 3. Clone the repository with:  
@@ -30,13 +29,14 @@ In my opinion longer passwords are ways better then shorter and complexer ones.
 
 # virtual environment
 you might want to create a virtual environment with:  
-```python.exe -m venv 'drive:\path\to\kee-password' --copies --upgrade-deps```
-
-Remember to activate this everytime you use it from the scripts folder!
+```python.exe -m venv 'drive:\path\to\ke-password' --copies --upgrade-deps```
+Remember to activate this on every use  from the ke-password\scripts folder!
 
 # modules
 Now you can install the needed modules with:  
-```pip install pysimplegui pyinstaller```
+```pip install -r requirements.txt```
+This project use only pysimplegui and pyinstaller at the moment.
+As my IDE has pylint and flake implemented (it's Spyder IDE from the winpython distribution), I don't need those modules in the project environment.
 
 and check the successfull installation with:  
 ```pip list```
