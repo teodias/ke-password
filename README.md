@@ -13,7 +13,7 @@ And guess what happened next day? They were so confused about trying 5-6 passwor
 So here comes my attempt to help:
 This app creates a password from a wordlist with symbols, numbers and an optional lowercase char.
 There are no personal information in this password and it's not to hard to remember it.
-The safety aspect is not the complexity of the password (brute force algorithms are not getting confused by short but very complex passwords ;) only humans do :D) it's the lentgh of the password.
+The safety aspect is not the complexity of the password (brute force algorithms are not getting confused by short but very complex passwords ;) only humans do :D) it's the length of the password.
 This passwords can get quite long but are still easy to remember.
 In my opinion longer passwords are ways better then shorter and complexer ones.
 
