@@ -28,7 +28,7 @@ In my opinion longer passwords are ways better then shorter and complexer ones.
 ```git clone https://github.com/teodias/ke-password.git```
 
 # virtual environment
-you might want to create a virtual environment with:  
+You might want to create a virtual environment with:  
 ```python.exe -m venv 'drive:\path\to\ke-password' --copies --upgrade-deps```
 Remember to activate this on every use  from the ke-password\scripts folder!
 
@@ -38,8 +38,8 @@ Now you can install the needed modules with:
 This project use only pysimplegui and pyinstaller at the moment.
 As my IDE has pylint and flake implemented (it's Spyder IDE from the winpython distribution), I don't need those modules in the project environment.
 
-and check the successfull installation with:  
-```pip list```
+You can check the successfull installation of the modules with:  
+```pip list``` or ```pip check```
 
 # build the Windows app
 With the `compile.cmd` you can create an EXE file to run this app without a separately installed python compiler.
