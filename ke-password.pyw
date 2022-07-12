@@ -2,18 +2,8 @@
 # -*- coding: utf-8 -*-
 
 """
-    TODO:
-    install pysimplegui 4.60.20+
-    add window.bind for ESCAPE to clear all input fields
-
-    Change log
-
-    0.1.1   2022-06-22
-    - fixed file access to word list
-
-    0.1.0   2022-06-08
-    - intitial release
-
+TODO:
+add window.bind for ESCAPE to clear all input fields
 """
 
 # modules
