@@ -1,0 +1,3 @@
+1. add wordlist.txt to release_0.1.0
+2. add hint and link to readme.md
+3. raise error message when there is no wordlist.txt in the apps folder

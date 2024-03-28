@@ -3,6 +3,7 @@
 
 """
 TODO:
+unpack list to strings goto TODO:
 add window.bind for ESCAPE to clear all input fields
 """
 
@@ -99,6 +100,9 @@ def generate_passwords(
         if generated_passwords > int(number_of_passwords):
             break
     password_list = sorted(password_list, key=len)
+    # https://stackoverflow.com/questions/69011938/curly-brackets-issue-in-a-pysimplegui-list-box-and-python-3
+    # TODO: unbpack list to strings
+    # list(map(lambda x:f'{x[0]}', password_list))
     return password_list
 
 
